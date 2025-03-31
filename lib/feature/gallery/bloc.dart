@@ -40,10 +40,13 @@ final class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
           isOffline: false,
         ),
       );
-      // кешируем
+      // кешируем в фоне
       Future.wait(
         data.map((e) => _dbRepo.upsert(PhotoFactory.externalToDB(e))),
-      );
+      ).catchError((e) {
+        if (kDebugMode) print(e);
+        return [];
+      }, test: (e) => e is DatabaseException);
     } on http.ClientException catch (e) {
       if (kDebugMode) print(e.message);
       try {
@@ -58,6 +61,7 @@ final class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
             ),
           );
         } else {
+          // если в кеше пусто, отображаем ошибку
           emit(state.copyWith(status: EGalleryStatus.error, error: e));
         }
       } on DatabaseException catch (dbe) {

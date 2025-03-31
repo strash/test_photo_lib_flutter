@@ -4,14 +4,15 @@ import "package:flutter/foundation.dart";
 import "package:test_photo_lib/data/db/migrations/migrations.dart";
 
 final class MigrationService {
+  // тут находятся все миграции
   List<BaseMigration Function()> get _migrations {
     return [() => DummyMigration1(), () => CreatePhotosTableMigration2()];
   }
 
+  // этот метод вызывается из AppDatabase чтобы получить миграцию по версии
   Iterable<BaseMigration Function()> getFor(int from, int to) {
     if (_migrations.isEmpty) throw Exception("There's no migrations!");
 
-    // NOTE: initial migration
     if (from == 0 && to == 1) return _migrations.take(1);
 
     final list = List<BaseMigration Function()>.from(

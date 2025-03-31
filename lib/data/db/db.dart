@@ -2,6 +2,7 @@ import "package:path/path.dart" as path;
 import "package:sqflite/sqflite.dart";
 import "package:test_photo_lib/data/db/migration_service.dart";
 
+// синглтон
 final class AppDatabase {
   Future<Database>? _db;
   final _migrations = MigrationService();
