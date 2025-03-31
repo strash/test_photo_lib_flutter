@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // инициализируем sqlite. запускаются миграции
-  await AppDatabase.instance().db;
+  await AppDatabase.instance.db;
 
   runApp(
     MultiRepositoryProvider(

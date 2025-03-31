@@ -9,7 +9,7 @@ final class AppDatabase {
 
   static final AppDatabase _instance = AppDatabase._();
 
-  factory AppDatabase.instance() => _instance;
+  static AppDatabase get instance => _instance;
 
   AppDatabase._();
 

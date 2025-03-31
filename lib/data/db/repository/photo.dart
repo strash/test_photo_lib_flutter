@@ -10,7 +10,7 @@ final class DBPhotoRepository implements IDBPhotoRepository {
   @override
   Future<List<DBPhotoDto>> getAll() async {
     try {
-      final db = await AppDatabase.instance().db;
+      final db = await AppDatabase.instance.db;
       final maps = await db.query(_table);
 
       return maps.map(DBPhotoDto.fromMap).toList(growable: false);
@@ -23,7 +23,7 @@ final class DBPhotoRepository implements IDBPhotoRepository {
   @override
   Future<void> upsert(DBPhotoDto dto) async {
     try {
-      final db = await AppDatabase.instance().db;
+      final db = await AppDatabase.instance.db;
       await db.insert(
         _table,
         dto.toMap(),
